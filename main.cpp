@@ -8,10 +8,11 @@ using namespace std;
 
 int main()
 {
-	const int minrandom = 0;
-	const int maxrandom = 100000;
-	const int count = 100000;
+	const long minrandom = 0;
+	const long maxrandom = 100000;
+	const long count = 100000;
 
+	ofstream befout("input.txt");
 	ifstream fin("input.txt");
     ofstream fout("output.txt");
 
@@ -35,11 +36,11 @@ int main()
 		random = 0;
 	}
 
-	//std::cout << "BEFORE SORT: " << std::endl;
-	//for (int i = 0; i < count; i++)
-	//{
-		//std::cout << array[i] << std::endl;
-	//}
+	std::cout << "BEFORE SORT: " << std::endl;
+	for (int i = 0; i < count; i++)
+	{
+		befout << array[i] << std::endl;
+	}
 
 	std::sort(array, array+count);
 
