@@ -9,8 +9,8 @@ using namespace std;
 int main()
 {
 	const long minrandom = 0;
-	const long maxrandom = 100000;
-	const long count = 100000;
+	const long maxrandom = 100000000;
+	const long count = 10000000;
 
 	ofstream befout("input.txt");
 	ifstream fin("input.txt");
@@ -19,7 +19,9 @@ int main()
     std::mt19937 mersenne(time(0));
 	int random;
 
-	int array[count];
+	int *array = new int[count];
+
+	//FILL ARRAY
 	for (int i = 0; i < count; i++)
 	{
 		for (; ;)
@@ -42,6 +44,7 @@ int main()
 		befout << array[i] << std::endl;
 	}
 
+	//SORTING
 	std::sort(array, array+count);
 
 	std::cout << "AFTER SORT: " << std::endl;
@@ -49,5 +52,7 @@ int main()
 	{
 		fout << array[i] << std::endl;
 	}
+
+	delete[] array;
     return 0;
 }
