@@ -2,6 +2,32 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "g++.exe - Сборка и отладка активного файла",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${fileDirname}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "D:/VisualStudioCode/VSCode/compilers/mingw/x86_64/mingw64/bin/gdb.exe",
+      "setupCommands": [
+        {
+          "description": "Включить автоматическое форматирование для gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Задать для варианта приложения дизассемблирования значение Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "C/C++: g++.exe сборка активного файла"
+    },
+    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
@@ -9,9 +35,9 @@
         ""
       ],
       "stopAtEntry": false,
-      "cwd": "d:/Git/MyPrograms/Sorting",
+      "cwd": "d:/VisualStudioCode/MyPrograms/Sorting",
       "environment": [],
-      "program": "d:/Git/MyPrograms/Sorting/build/Debug/outDebug",
+      "program": "d:/VisualStudioCode/MyPrograms/Sorting/build/Debug/outDebug",
       "internalConsoleOptions": "openOnSessionStart",
       "MIMode": "gdb",
       "miDebuggerPath": "D:/Git/mingw64/bin/gdb.exe",
