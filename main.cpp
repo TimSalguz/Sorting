@@ -9,20 +9,28 @@
 
 using namespace std::chrono_literals;
 
-int main()
-{
-	const long minrandom = 0;
-	const long maxrandom = 100;
-	long count = 1000000;
-	std::ofstream befout("input.txt");
+int main()                                                     //Количество |  Худший   |  средний    |    лучший
+{                                                              //  10 000   | 0,010012  | 0,0009993   | 0,001009
+	const long minrandom = 0;                                  // 100 000   | 0,0019999 | 0,0030003   | 0,0029997
+	const long maxrandom = 100;                                //1 000 000  | 0,011     | 0,018999    | 0,0079995
+	long count = 100000;                                       
+	std::ofstream befout("input.txt");                         //Сложность  линейная n
 	std::ifstream fin("input.txt");
     std::ofstream fout("output.txt");
 	int *array = new int[count];
-	//FILL ARRAY
+	// FILL ARRAY
 	for (int i = 0; i < count; ++i)
 	{
 		array[i] = ts::Random(i, minrandom, maxrandom);
 	}
+
+	// for (int i = 0; i < count; ++i)
+	// {
+	// 	array[i] = i*2+1;
+	// }
+
+	
+
 	std::cout << "BEFORE SORT: " << std::endl;
 	for (int i = 0; i < count; ++i)
 	{
