@@ -9,12 +9,69 @@
 
 using namespace std::chrono_literals;
 
-int main()                                                     //Количество |  Худший   |  средний    |    лучший
-{                                                              //  10 000   | 0,010012  | 0,0009993   | 0,001009
-	const long minrandom = 0;                                  // 100 000   | 0,0019999 | 0,0030003   | 0,0029997
-	const long maxrandom = 100;                                //1 000 000  | 0,011     | 0,018999    | 0,0079995
-	long count = 100000;                                       
-	std::ofstream befout("input.txt");                         //Сложность  линейная n
+
+namespace ts
+{
+	void swapSort(int *array, int count)
+	{
+	for(long i = 1; i < count; ++i)
+		for(long j = 0; j < count-1; ++j)
+			if(array[j]>array[i])
+				std::swap(array[i], array[j]);
+	}
+
+	void bubbleSort(int *array, int count)
+	{
+	for(long j = 0; j < count; j++)
+		for(long i = 0; i < count; ++i)
+			if(array[i]>array[i+1])
+				std::swap(array[i], array[i+1]);
+	}
+
+	void qSort(int *x, int a, int b)
+	{
+		if (a >= b) {
+        return;
+    }
+		int m = rand() % (b - a + 1) + a;
+		int k = x[m];
+		int l = a-1;
+		int r = b+1;
+		while(1)
+		{
+			do
+			{
+				l = l + 1; 
+			}
+			while (x[l] < k);
+
+			do
+			{
+				r = r - 1; 
+			}
+			while (x[r] > k);
+			
+			if (l >= r)
+				break;
+			
+			std::swap(x[l], x[r]);
+		}
+		
+		r = l;
+		l = l - 1;
+		qSort(x, a, l);
+		qSort(x, r, b);
+	}
+
+
+	}
+
+int main()
+{                                                         
+	const long minrandom = 0;                            
+	const long maxrandom = 100;                         
+	long count = 1000000;                                       
+	std::ofstream befout("input.txt");
 	std::ifstream fin("input.txt");
     std::ofstream fout("output.txt");
 	int *array = new int[count];
@@ -24,13 +81,6 @@ int main()                                                     //Количес�
 		array[i] = ts::Random(i, minrandom, maxrandom);
 	}
 
-	// for (int i = 0; i < count; ++i)
-	// {
-	// 	array[i] = i*2+1;
-	// }
-
-	
-
 	std::cout << "BEFORE SORT: " << std::endl;
 	for (int i = 0; i < count; ++i)
 	{
@@ -39,32 +89,33 @@ int main()                                                     //Количес�
 
 
 	ts::Timer timer;
-	int chet = 0;
-	for (int i = 0; i < count; ++i)
-	{
-		if((array[i] % 2) == 0)
-			chet++;
-	}
-	int *tempArray = new int[count+chet];
-	int j = 0;
+
+
+	ts::bubbleSort(array, count);
+	//std::sort(array, array+count);
+
+	
+
+
+
 	//SORTING
-	for (int i = 0; i < count; ++i)
-	{
-		if ((array[i]%2) != 0)
-		{
-			tempArray[j] = array[i];
-			j++;
-		}
-		else
-		{
-			tempArray[j] = array[i];
-			j++;
-			tempArray[j] = array[i];
-			j++;
-		}
-	}
-	array = tempArray;
-	count += chet;
+	// for (int i = 0; i < count; ++i)
+	// {
+	// 	if ((array[i]%2) != 0)
+	// 	{
+	// 		tempArray[j] = array[i];
+	// 		j++;
+	// 	}
+	// 	else
+	// 	{
+	// 		tempArray[j] = array[i];
+	// 		j++;
+	// 		tempArray[j] = array[i];
+	// 		j++;
+	// 	}
+	// }
+	// array = tempArray;
+	// count += chet;
     std::cout << "Time elapsed: " << timer.elapsed() << '\n';
 
 
