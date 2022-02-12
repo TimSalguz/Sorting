@@ -22,18 +22,28 @@ namespace ts
 
 	void bubbleSort(int *array, int count)
 	{
-	for(long j = 0; j < count; j++)
-		for(long i = 0; i < count; ++i)
-			if(array[i]>array[i+1])
-				std::swap(array[i], array[i+1]);
+	for (int i = 1; i < count; i++)
+	{
+		if (array[i] >= array[i - 1])
+		{
+			continue;
+		}
+		int j = i - 1;
+		while (j >= 0 && array[j] > array[j + 1])
+		{
+			std::swap(array[j], array[j + 1]);
+			j = j - 1;
+		}
 	}
+
+}
 
 	void qSort(int *x, int a, int b)
 	{
 		if (a >= b) {
         return;
     }
-		int m = rand() % (b - a + 1) + a;
+		int m = (rand()*rand()) % (b - a + 1) + a;
 		int k = x[m];
 		int l = a-1;
 		int r = b+1;
@@ -70,7 +80,7 @@ int main()
 {                                                         
 	const long minrandom = 0;                            
 	const long maxrandom = 100;                         
-	long count = 1000000;                                       
+	long count = 100000;                                       
 	std::ofstream befout("input.txt");
 	std::ifstream fin("input.txt");
     std::ofstream fout("output.txt");
