@@ -10,6 +10,7 @@
 using namespace std::chrono_literals;
 
 
+
 namespace ts
 {
 	void swapSort(int *array, int count)
@@ -73,59 +74,99 @@ namespace ts
 		qSort(x, r, b);
 	}
 
+	void binarySearch(int *array, int count, int find)
+	{
+	int maxElem = count;
+	int minElem = 0;
+	for(; ; )
+	{
+		int promCount = maxElem-minElem;
+		int oldPromCount = promCount;
+		promCount /= 2;
+
+		std::cout << "promcount = " << array[promCount] << std::endl;
+		std::cout << "promcount = " << promCount << std::endl;
+		std::cout << "oldpromcount = " << oldPromCount << std::endl;
+
+		if(maxElem-minElem == 0)
+			break;
+		if(maxElem-minElem == 1)
+			if (array[minElem] == find)
+			{
+				std::cout << "FOUNDED! Element number " << minElem << std::endl;
+				break;
+			}
+			else if (array[maxElem] == find)
+			{
+				std::cout << "FOUNDED! Element number " << maxElem << std::endl;
+				break;
+			}
+			else
+			{
+				std::cout << "Element " << find << " not found!" << std::endl;
+				break;
+			}
+		if(array[minElem] == find)
+		{
+			std::cout << "FOUNDED! Element number " << minElem << std::endl;
+			break;
+		}
+		if(find > array[minElem+promCount])
+		{
+			minElem += promCount;
+			std::cout << ">Min = " << minElem << " Max = " << maxElem << std::endl;
+		}
+		else if (array[minElem+promCount] == find)
+		{
+			std::cout << "FOUNDED! Element number " << minElem+promCount << std::endl;
+			break;
+		}
+		else
+		{
+			maxElem -= promCount;
+			std::cout << "<Min = " << minElem << " Max = " << maxElem << std::endl;
+		}
+	}
+	}
 
 	}
 
 int main()
 {                                                         
 	const long minrandom = 0;                            
-	const long maxrandom = 100;                         
-	long count = 100000;                                       
-	std::ofstream befout("input.txt");
+	const long maxrandom = 10000000;                         
+	long count = 100000;    
 	std::ifstream fin("input.txt");
-    std::ofstream fout("output.txt");
+    std::ofstream foutsort("sorted.txt");
 	int *array = new int[count];
 	// FILL ARRAY
+	// std::ofstream fout("input.txt");
+	// for (int i = 0; i < count; ++i)
+	// {
+	// 	array[i] = ts::Random(i, minrandom, maxrandom);
+	// }
+	// for (int i = 0; i < count; ++i)
+	// {
+	// 	fout << array[i] << std::endl;
+	// }
+
 	for (int i = 0; i < count; ++i)
 	{
-		array[i] = ts::Random(i, minrandom, maxrandom);
+		fin >> array[i];
 	}
-
-	std::cout << "BEFORE SORT: " << std::endl;
-	for (int i = 0; i < count; ++i)
-	{
-		befout << array[i] << std::endl;
-	}
-
+	
 
 	ts::Timer timer;
 
+	//std::cout << findMax(array, count, 0, INT_MAX) << std::endl;
+	//ts::bubbleSort(array, count);
+	std::sort(array, array+count);
 
-	ts::bubbleSort(array, count);
-	//std::sort(array, array+count);
-
-	
-
+	int find = 977578;
+	std::cout << "we want to find: " << find << std::endl;
+	ts::binarySearch(array, count, find);
 
 
-	//SORTING
-	// for (int i = 0; i < count; ++i)
-	// {
-	// 	if ((array[i]%2) != 0)
-	// 	{
-	// 		tempArray[j] = array[i];
-	// 		j++;
-	// 	}
-	// 	else
-	// 	{
-	// 		tempArray[j] = array[i];
-	// 		j++;
-	// 		tempArray[j] = array[i];
-	// 		j++;
-	// 	}
-	// }
-	// array = tempArray;
-	// count += chet;
     std::cout << "Time elapsed: " << timer.elapsed() << '\n';
 
 
@@ -133,7 +174,7 @@ int main()
 	std::cout << "AFTER SORT: " << std::endl;
 	for (int i = 0; i < count; ++i)
 	{
-		fout << array[i] << std::endl;
+		foutsort << array[i] << std::endl;
 	}
 
 	delete[] array;
